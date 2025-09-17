@@ -1,7 +1,18 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using MVC_Area.Models.Context;
+using MVC_Area.Models.Entities;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews();//MVC kullanmak için servislere "AddControllersWithViews" ekliyoruz
+
+//AddDbContext
+builder.Services.AddDbContext<ProjectContext>(options => options.UseSqlServer("Server=LAPTOP-ATORPEDA;Database=AreaProjectDB;Trusted_Connection=true;TrustServerCertificate=True"));
+
+//Identity Service = Eylemleri herhangibir controller da ulaþabilelim diye
+builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<ProjectContext>()/*Ait olduðu temel çatý(context) neresi ise orasý alýnýr*/;
 
 var app = builder.Build();
 

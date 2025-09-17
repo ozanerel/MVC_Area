@@ -1,0 +1,40 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-6 mx-auto">
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                <div class="mb-2">
+                    <label>Kullanıcı Ad</label>
+                    @*Bu inputa girilen değer hangi kullanılan model in property si olduğunu gösteriyor ve hata oranını düşürüyor bu yizden asp-for kullanıyoruz*@
+					<span asp-validation-for="UserName" class="text-danger"></span>
+                    @*validation doğrulama gibi düşünülebilir hata mesajını buradaki span içerisinde gösterir*@
+                    <input type="text" class="form-control" asp-for="UserName" />
+                </div>
+                <div class="mb-2">
+                    <label>Email</label>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <input type="email" class="form-control" asp-for="Email" />
+                </div>
+                <div class="mb-2">
+                    <label>Şifre</label>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <input type="password" class="form-control" asp-for="Password"/>
+                </div>
+                <div class="mb-2">
+                    <label>Şifre (Tekrar)</label>
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    <input type="password" class="form-control" asp-for="ConfirmPassword"/>
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+            
+        </div>
+
+    </div>
+</div>
+
