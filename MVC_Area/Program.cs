@@ -5,6 +5,10 @@ using MVC_Area.Models.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();//MVC kullanmak için servislere "AddControllersWithViews" ekliyoruz
 
@@ -29,7 +33,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
 
 //Ýlk baþta area oluþturulduðunda gelen scaffoldingreadme içerisindeki kod. Bunun sayesinde iki homecontroller ýn çakýþmasýný engelliyor
 //Endpointler bünyesinde birden fazla ulaþým noktasýný barýndýran metotlardýr

@@ -47,8 +47,9 @@ namespace MVC_Area.Controllers
                     Address = "Kadıköy"
                 };
 
+
                 //Kayıt işlemi
-                var result = await _userManager.CreateAsync(user,registerViewModel.ConfirmPassword);
+                var result = await _userManager.CreateAsync(user, registerViewModel.Password);
                 //Async = İş devam ederken başka işlemler de yapılabilir demek.
                 //await = sıkıntı yaşatırsa bir sonraki istekte devam et demek.
 
@@ -58,10 +59,11 @@ namespace MVC_Area.Controllers
                 }
                 else
                 {
-                    return View();
+                    
+                    return View(registerViewModel);
                 }
 
-                
+
             }
             else
             {

@@ -13,26 +13,28 @@ namespace MVC_Area.Models.Context
         {
             
         }
-        public ProjectContext()
-        {
+        //public ProjectContext()
+        //{
 
-        }
+        //}
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
 
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Server=LAPTOP-ATORPEDA;Database=AreaProjectDB;Trusted_Connection=true;TrustServerCertificate=True ");
-                base.OnConfiguring(optionsBuilder);
-            }
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    if (!optionsBuilder.IsConfigured)
+        //    {
+        //        optionsBuilder.UseSqlServer("Server=LAPTOP-ATORPEDA;Database=AreaProjectDB;Trusted_Connection=true;TrustServerCertificate=True ");
+        //        base.OnConfiguring(optionsBuilder);
+        //    }
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             //Fluent API (model oluşturulurken tanımlanan ilişkilendirme yöntemi)
             modelBuilder.Entity<Product>().HasOne(p => p.Category)
                 .WithMany(c => c.Products)
@@ -43,7 +45,7 @@ namespace MVC_Area.Models.Context
             modelBuilder.Entity<Category>().HasData(CategorySeedData.categories);
             modelBuilder.Entity<Product>().HasData(ProductSeedData.products);
 
-            base.OnModelCreating(modelBuilder);
+            
         }
     }
 }
