@@ -9,11 +9,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 
+//Configuration (appsetting.json dosyasýna ulaþmamýzý saðlayan interface)
+string connectionString = builder.Configuration/*["ConnectionStrings:DefaultConnection"];*/.GetConnectionString("DefaultConnection");//Ýki türlüde kullanabiliriz.Yani bu amaç için tasarlanmýþ olan metottur.Bu sayede özel bilgi direkt burada kullanýlmýyor.
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();//MVC kullanmak için servislere "AddControllersWithViews" ekliyoruz
 
 //AddDbContext
-builder.Services.AddDbContext<ProjectContext>(options => options.UseSqlServer("Server=LAPTOP-ATORPEDA;Database=AreaProjectDB;Trusted_Connection=true;TrustServerCertificate=True"));
+builder.Services.AddDbContext<ProjectContext>(options => options.UseSqlServer());
 
 //Identity Service = Eylemleri herhangibir controller da ulaþabilelim diye
 builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<ProjectContext>()/*Ait olduðu temel çatý(context) neresi ise orasý alýnýr*/;
