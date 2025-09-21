@@ -1,0 +1,61 @@
+﻿@model List<MVC_Area.Models.Entities.AppUser>
+@inject MVC_Area.Services.Abstracts.IAppUserService AppUserService;
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_AreaLayout.cshtml";
+}
+
+<div class="card mt-2">
+	<div class="card-header d-flex justify-content-between">
+		<div>
+			<i class="fas fa-table me-1"></i>
+			Kullanıcılar
+		</div>
+		<div>
+			<button class="btn btn-outline-success">Yeni Kullanıcı</button>
+		</div>
+	</div>
+	<div class="card-body">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Email Confirmed</th>
+					<th>Roles</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var user in Model)
+				{
+					<tr>
+						<td>@user.UserName</td>
+						<td>@user.Email</td>
+						<td>@user.EmailConfirmed</td>
+						<td>
+							@foreach (var role in await AppUserService.GetUserRolesAsync(user))
+							{
+								@switch (role)
+								{
+									case "admin":
+										<span class="bg-danger text-white">Admin</span>
+										break;
+									case "kullanıcı":
+										<span class="bg-primary text-white">Kullanıcı</span>
+										break;
+									case "muhasebe":
+										<span class="bg-warning text-white">Muhasebe</span>
+										break;
+									case "insan kaynakları":
+										<span class="bg-success text-white">İnsan Kaynakları</span>
+										break;
+								}
+							}
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</div>
+

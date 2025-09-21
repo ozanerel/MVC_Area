@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MVC_Area.Models.Context;
 using MVC_Area.Models.Entities;
+using MVC_Area.Services.Abstracts;
+using MVC_Area.Services.Concretes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +45,9 @@ builder.Services.ConfigureApplicationCookie(x =>
     x.SlidingExpiration = true;//Cookie nin ömrü dolmak üzereyken yenilenmesini saðlar
     x.ExpireTimeSpan = TimeSpan.FromMinutes(1);//Cookie nin ömrü 1 dk. Bu cookie browserdan silinecek tekrar giriþ yapýlmasý gerekecek
 });
+
+//Service
+builder.Services.AddScoped<IAppUserService, AppUserService>();//Scoped: Her istek için bir tane instance oluþturur
 
 var app = builder.Build();
 
