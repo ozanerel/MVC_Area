@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MVC_Area.Migrations
 {
     /// <inheritdoc />
-    public partial class initialUser : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -192,6 +192,17 @@ namespace MVC_Area.Migrations
                         principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "01beec37-ed84-4141-953d-cdccf107e251", null, "muhasebe", null },
+                    { "0c09cb82-7858-49bc-9d8c-3675a7b59874", null, "kullanıcı ", null },
+                    { "1b4bdadc-2e09-415e-b25a-a56dad37c5e9", null, "admin", null },
+                    { "60e4ee61-d3e1-4c4c-9590-589cbf67e16e", null, "insan kaynakları", null }
                 });
 
             migrationBuilder.InsertData(

@@ -204,6 +204,28 @@ namespace MVC_Area.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1b4bdadc-2e09-415e-b25a-a56dad37c5e9",
+                            Name = "admin"
+                        },
+                        new
+                        {
+                            Id = "01beec37-ed84-4141-953d-cdccf107e251",
+                            Name = "muhasebe"
+                        },
+                        new
+                        {
+                            Id = "60e4ee61-d3e1-4c4c-9590-589cbf67e16e",
+                            Name = "insan kaynakları"
+                        },
+                        new
+                        {
+                            Id = "0c09cb82-7858-49bc-9d8c-3675a7b59874",
+                            Name = "kullanıcı "
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

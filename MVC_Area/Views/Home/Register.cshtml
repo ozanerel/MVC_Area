@@ -7,6 +7,9 @@
 <div class="col-md-6 mx-auto">
     <div class="card">
         <div class="card-body">
+            <div asp-validation-summary="All">
+                @*Bütün doğrulamalara air oluşturulmuş olunan hata mesajlarının özeti olarak kullanıcaz.Belirttiklerimiz dışında öngörülemeyen hata mesajlarını üst kısımda göstermek için kullanılıyor.*@
+            </div>
             <form method="post">
                 <div class="mb-2">
                     <label>Kullanıcı Ad</label>

@@ -16,10 +16,33 @@ string connectionString = builder.Configuration/*["ConnectionStrings:DefaultConn
 builder.Services.AddControllersWithViews();//MVC kullanmak için servislere "AddControllersWithViews" ekliyoruz
 
 //AddDbContext
-builder.Services.AddDbContext<ProjectContext>(options => options.UseSqlServer());
+builder.Services.AddDbContext<ProjectContext>(options => options.UseSqlServer(connectionString));
+
+//Identity Customize = Burada kurallarý (þifre vs) özelleþtirmek için kullandýðýmýz alan
+builder.Services.Configure<IdentityOptions>(x =>
+{
+    x.Password.RequiredLength = 4;//min 4 karakter olsun 
+    x.Password.RequireUppercase = false; 
+    x.Password.RequireLowercase = false;
+    x.Password.RequireNonAlphanumeric = false;
+});
 
 //Identity Service = Eylemleri herhangibir controller da ulaþabilelim diye
 builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<ProjectContext>()/*Ait olduðu temel çatý(context) neresi ise orasý alýnýr*/;
+
+//Cookie
+builder.Services.ConfigureApplicationCookie(x =>
+{
+    x.Cookie = new CookieBuilder
+    {
+        Name = "AspNetCore_Cookie",//Cookie ismi
+
+    };
+    x.LoginPath = new PathString("/Home/Login"); //Bu yoldan baþarýlý geçiþ yapan kullanýcýya ait bilgileri verdiðimiz cookie nin altýnda sakla 
+    x.AccessDeniedPath = new PathString("/Home/AccessDenied");//Rolü uygun deðilse gönderilecek alan
+    x.SlidingExpiration = true;//Cookie nin ömrü dolmak üzereyken yenilenmesini saðlar
+    x.ExpireTimeSpan = TimeSpan.FromMinutes(1);//Cookie nin ömrü 1 dk. Bu cookie browserdan silinecek tekrar giriþ yapýlmasý gerekecek
+});
 
 var app = builder.Build();
 
@@ -36,8 +59,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseAuthentication();//Kimlik == kullanýcý .. rolü de bu .. 
+app.UseAuthorization();//Oturum == bir kullanýcak gelecek onu karþýla 
 
 
 //Ýlk baþta area oluþturulduðunda gelen scaffoldingreadme içerisindeki kod. Bunun sayesinde iki homecontroller ýn çakýþmasýný engelliyor

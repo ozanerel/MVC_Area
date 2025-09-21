@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MVC_Area.Models.Context.Seeds;
 using MVC_Area.Models.Entities;
@@ -45,6 +46,8 @@ namespace MVC_Area.Models.Context
             modelBuilder.Entity<Category>().HasData(CategorySeedData.categories);
             modelBuilder.Entity<Product>().HasData(ProductSeedData.products);
 
+            //Identity Role
+            modelBuilder.Entity<IdentityRole>().HasData(AppUserRoleSeed.Roles);
             
         }
     }
